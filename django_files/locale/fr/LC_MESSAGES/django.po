@@ -1,0 +1,131 @@
+# Observatory website translations from english to france
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <simoes@mit.edu>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-03 12:15-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+msgid "World Data"
+msgstr "Monde"
+
+msgid "Export"
+msgstr "Exports"
+
+msgid "Import"
+msgstr "Imports"
+
+msgid "Select a Country"
+msgstr "Sélectionnez un Pays"
+
+msgid "Country"
+msgstr "Pays"
+
+msgid "Product"
+msgstr "Produit"
+
+msgid "Partner"
+msgstr "Partenaire"
+
+msgid "Trade Data Visualization"
+msgstr "Visualization des Échanges"
+
+msgid "Complexity Visualization"
+msgstr "Visualization de la Complexité"
+
+msgid "Bilateral"
+msgstr "Bilatéral"
+
+msgid "Net Exports"
+msgstr "Les exportations nettes"
+
+msgid "Net Imports"
+msgstr "Les importations nettes"
+
+msgid "Exports To Destination"
+msgstr "Les exportations vers la destination"
+
+msgid "Imports From Origin"
+msgstr "Les importations d'origine"
+
+msgid "Exports by Product"
+msgstr "Exportations par produit"
+
+msgid "Imports by Product"
+msgstr "Importations par produit"
+
+msgid "Play"
+msgstr "Jouer"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Controls"
+msgstr "Contrôles"
+
+msgid "Trade Flow"
+msgstr "Flux du commerce"
+
+msgid "Origin Country"
+msgstr "Pays d'origine"
+
+msgid "Destination Country"
+msgstr "Pays de destination"
+
+msgid "Year"
+msgstr "Année"
+
+msgid "Start Year"
+msgstr "année (début)"
+
+msgid "End Year"
+msgstr "année (fin)"
+
+msgid "Year Interval"
+msgstr "Intervalle Année"
+
+msgid "Build Visualization"
+msgstr "Construire visualisation"
+
+msgid "Download"
+msgstr "Télécharger"
+
+msgid "View as text"
+msgstr "Version texte"
+
+msgid "View app"
+msgstr "Voir app"
+
+msgid "Next"
+msgstr "Prochain"
+
+msgid "Previous"
+msgstr "Précédent"
+
+# Menu
+
+msgid "Explore"
+msgstr "Explorer"
+
+msgid "Rankings"
+msgstr "Classements"
+
+msgid "New Book"
+msgstr "Nouveau Livre"
+
+msgid "Glossary"
+msgstr "Glossaire"
+
+msgid "About"
+msgstr "À Propos"

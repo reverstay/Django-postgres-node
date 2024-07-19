@@ -1,0 +1,277 @@
+{% extends "template.html" %}
+
+{% block page_title %}The Atlas of Economic Complexity | Browse Stories {% endblock %}
+{% block heading_title %}Browse Stories{% endblock %}
+
+  {% block css %}
+
+  <link rel="stylesheet" href="media/css/normalize.css">
+  <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" href="media/js/libs/tipsy/tipsy.css" />
+  <link rel="stylesheet" href="media/js/libs/bootstrap/css/bootstrap-icon.css" />
+  <link rel="stylesheet" href="media/js/libs/jquery-dataTables/jquery.dataTables.css" />
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  
+  <style>
+  header nav ul{ height:46px !important;}
+  
+  #main{
+  margin-top:0px !important;
+  }
+  #logoutBtn
+  {
+  margin-right:5%;
+  }
+  </style>
+ {% endblock %}
+ 
+ {% block content %}
+	 <div id="browseStories">
+			<ul id="tabSection">
+				<li><a href="stories/#mystories">Mine (requires <img src="media/img/all/googleplus_badge.png" style="height:15px;"><img src="media/img/all/facebook_badge.png" style="height:15px; margin-left: 5px">)</a></li>
+				<li><a href="stories/#popular">Popular</a></li>
+				<li><a href="stories/#featured">Featured</a></li>
+				<li><a href="stories/#published">All Stories</a></li>
+			</ul>
+		<div id="dataSection">
+		<div id="mystories" class="storyTable">
+			<form name="storyForm" method="post" class="sform">
+				{% csrf_token %}
+				<table name="Stories" class="storiesTable">
+					<thead>
+						<tr>
+							<th class="st">Title</th>
+							<th class="vs">View</th>
+							<th class="es">Edit</th>
+							<th class="ps">Publish</th>
+							<th class="fs">Feature</th>
+							<th class="rs">Remove</th>
+						</tr>
+					</thead>
+					 <tbody id="myStoriesData">
+					</tbody> 
+				</table> 
+				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
+			</form>
+		</div>
+		<div id="popular" class="storyTable">
+			<form name="storyForm" method="post" class="sform">
+				{% csrf_token %} 
+				<table name="Stories" class="storiesTable" >
+					<thead>
+						<tr>
+							<th class="st">Title</th>
+							<th class="vs">View</th>
+						</tr>
+					</thead>
+					<tbody>
+				   </tbody>
+				</table> 
+				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
+		 	</form>
+		</div>
+		<div id="featured" class="storyTable">
+			<form name="storyForm" method="post" class="sform">
+				{% csrf_token %} 
+				<table name="Stories" class="storiesTable" >
+					<thead>
+						<tr>
+							<th class="st">Title</th>
+							<th class="vs">View</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table> 
+				 <p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
+			</form>
+		</div>
+		<div id="published" class="storyTable">
+			<form name="storyForm" method="post" class="sform">
+				{% csrf_token %} 
+			<p class="emptyStoryMessage">There are no stories in the list</br>please add stories &nbsp<a href="explore">here</a> </p>
+				<table name="Stories" class="storiesTable" >
+				{% if checkAdmin %}
+					<thead>
+						<tr>
+							<th class="st" >Title</th>
+							<th class="vs">View</th>
+							<th class="es">Edit</th>
+							<th class="ps">Publish</th>
+							<th class="fs">Feature</th>
+							<th class="rs">Remove</th>
+						</tr>
+					</thead>
+				{% else %}	
+					<thead>
+						<tr>
+							<th class="st">Title</th>
+							<th class="vs">View</th>
+						</tr>
+					</thead>
+				{% endif %}	
+					<tbody id="publishedData" >
+					</tbody>
+				</table> 
+			</form>
+		</div>
+	</div>	
+	</div>
+<div class="modal fade" id="dialog-modal-browseStory" role="dialog" aria-labelledby="Save Story" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Login to browse your own stories</h4>
+      </div>
+       <form  id="saveDataInDB"  method="post" action='stories/'>
+      <div class="modal-body">
+        {% csrf_token %}
+      <img src="media/img/sign-in-with-google.png" alt="Login Using Google" onclick="googleLogin()" style="width: 200px; height: 40px;cursor:pointer;margin-left:30px"/>
+      <img src="media/img/sign-in-with-facebook.png" alt="Login Using Facebook" onclick="fbLogin()"style="width: 200px; height: 40px;margin-left: 60px;cursor:pointer"/>
+      <input type="hidden" id="socialMediaIntegrationData" name="socialMediaIntegrationData"></input>
+      </div>
+     </form> 
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="dialog-modal-confirmDelete"  role="dialog" aria-labelledby="Confirm Delete" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h2 >Are you sure?</h2> 
+      </div>
+      <div class="modal-footer">
+       <button type="button" id="deleteConfirmed" class="btn btn-default" data-dismiss="modal" >Ok</button>
+       <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+{% endblock %}
+   
+{% block js %}
+
+  <!-- The JavaScript -->
+  <!-- Libraries -->
+  <script src="media/js/libs/jquery/jquery-1.7.1.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="media/js/libs/tipsy/tipsy.jquery.js" ></script>
+  <script src="media/js/libs/bootstrap/js/bootstrap.js"></script>
+  <script src="media/js/libs/jquery-dataTables/jquery.dataTables.min.js"></script>
+  <script src="media/js/libs/jquery-template/jquery.tmpl.min.js"></script>
+  <script src="media/js/story/createStory.js"></script> 
+  <script src="media/js/story/retrieveStory.js"></script> 
+  
+  
+  
+ <script> 
+$(document).ready(function() { 
+	
+	$("#popular").show();
+	$("#featured").show();
+    $("#browseStories").tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+	$("#browseStories li").removeClass( "ui-corner-top" );
+	$("#browseStories ul").removeClass("ui-corner-all");	
+    activateTabs();
+    var userSession=('<div id="userSession"><button id="logoutBtn"  onclick="location.href='+"'logout/'"+'">Logout</button><p id="loggedInUser">Hello {{ userName }}</p></div>');
+     {% if  userId  %}
+    {
+    	$("#main").prepend(userSession);
+    } 
+    {% endif %}
+//activate tabs based on user login	
+  $('#browseStories').tabs({
+ 	beforeActivate: function(event ,ui){
+ 		var userId={{ userId }};
+          if( ui.newTab.index()==0){
+         	if (userId) {  
+       		  return true;
+         	  }
+        		else {
+        		  $('#dialog-modal-browseStory').modal('show');
+        		  return false;
+        		  }
+         }
+         else{
+        	  return true;
+         }
+      },
+   activate:function(event,ui){
+ 	 var tab=$(ui.newPanel).prop('id');
+ 	 ajaxTabUpdater(tab+'/','{{ csrf_token }}').done(function(response){
+ 		  var jsonObj = JSON.parse(response);
+ 		  populateTable(jsonObj,tab,"{{checkAdmin}}");
+ 		})
+ 		.fail(function(response){
+ 			alert("server not reachable");
+ 		});	
+  	}
+ });
+});
+ /**
+  * activate tab based on type of user
+  */
+function activateTabs()
+  {
+	{% if userId %}	 
+	  $("#browseStories" ).tabs( "option", "active", 0 ); 
+	  ajaxTabUpdater('mystories/','{{ csrf_token }}').done(function(response){
+		  var jsonObj = JSON.parse(response);
+		  populateTable(jsonObj,"mystories","{{checkAdmin}}");
+
+		})
+		.fail(function(response){
+			alert("server not reachable");
+		});	
+	  {% else %}
+		  $( "#browseStories" ).tabs( "option", "active", 3 );
+		  ajaxTabUpdater('published/','{{ csrf_token }}').done(function(response){
+			  var jsonObj = JSON.parse(response);
+			  populateTable(jsonObj,"published","{{checkAdmin}}");
+			   	
+			})
+			.fail(function(response){
+				alert("server not reachable");
+			});	
+	  {% endif %}
+	  return false;
+  }
+
+
+
+</script>
+<script id="storyListTemplate1" type="text/x-jquery-tmpl"> 
+		
+			 <tr value="${pk}" data-chapterCount="${number_of_chapters}">
+				<td>${story_name}</td>
+				<td class="view">
+					<a href="stories/view/${pk}/" class="viewBtn  ${number_of_chapters}" >
+						<img src="media/img/app/view-fullscreen.png"></img>
+					</a>
+				</td>
+				<td class="edit">
+						<a href="stories/edit/${pk}/" name="Stories" class="editButton"  style="background: transparent url('media/img/app/editImage.png')  no-repeat;"></a>
+				</td>
+				<td class="stText"><input name="published" value="${pk}" class="publishBox"  type="checkbox" onclick="publishStory(this,'{{ csrf_token }}');"  ${published}/></td>
+				<td class="sdText"><input name="featured" value="${pk}" class="featureBox" type="checkbox" onclick="featureStory(this,'{{ csrf_token }}');"  ${featured} /></td>
+				<td class="del">
+						<input type="button" class="deleteButton"  data-value="${pk}" style="background:transparent url('media/img/app/q-sprites.gif') 0 -64px no-repeat;border:none;padding:0px;" onclick="showConfirmDeleteDialog(this,'{{ csrf_token }}')"></button>
+				</td>
+			</tr>
+		
+</script>
+<script id="storyListTemplate2" type="text/x-jquery-tmpl"> 
+					<tr value="${pk}">
+						    <td>${story_name}</td>
+							<td class="view">
+								<a href="stories/view/${pk}/" class="viewBtn ${number_of_chapters}" >
+										<img src="media/img/app/view-fullscreen.png"></img>
+								</a>
+							</td>
+					</tr>
+</script>
+ {% endblock %}
+
+ 

@@ -1,0 +1,276 @@
+<html>
+<head>
+	<title>The Atlas of Economic Complexity</title>
+	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="chosen_v1.1.0/chosen.css">
+	<link rel="stylesheet" type="text/css" href="rangeSlider/css/classic.css">
+	<link rel="stylesheet" type="text/css" href="foundation/css/foundation.css">
+	<link rel="stylesheet" type="text/css" href="d3/d3plus/css/d3plus.css">
+	<link rel="stylesheet" type="text/css" href="css/style3_full.css">
+</head>
+<body>
+<div id="header" class="one-edge-shadow">
+	<div id="headerInner">
+		<div class="left" id="logo"><a href="#"><img style="display:inline;" src="img/AtlasLogo.png"></a></div>
+		<nav class="right hide-for-medium-down" id="nav">
+			<ul id="navInner">
+				<li class="navItem"><a href="">Explore</a></li>
+				<li class="navItem"><a href="">Stories</a></li>
+				<li class="navItem"><a href="">Rankings</a></li>
+				<li class="navItem"><a href="">New Book</a></li>												
+			</ul>
+		</nav>
+	</div>
+</div>
+<div id="wrapper">
+<!-- 			<div class="title"><h2>What did the US Export in 2010?</h2></div> -->
+		<div id="vis">
+		</div>
+	<div id="indirect">
+
+		<div id="query">
+
+			<div class="hide-for-medium-down">
+				<select id="countrySelect" class="chosen-select small-12"></select>
+			</div>	
+
+			<div class="show-for-medium-down">
+				<select id="countrySelect" class="small-6 columns"></select>
+			</div>
+			<div class="hide-for-medium-down">
+				<div class="button-bar small-12 text-centered columns">
+				  <ul class="button-group">
+				    <li><a href="#" class="small button qb activeBtn">Export</a></li>
+				    <li><a href="#" class="small button qb">Import</a></li>
+				  </ul>
+				</div>
+			</div>			
+			<div class="show-for-medium-down">
+				<div class="button-bar small-6 text-centered columns">
+				  <ul class="button-group">
+				    <li><a href="#" class="small button qb activeBtn">Export</a></li>
+				    <li><a href="#" class="small button qb">Import</a></li>
+				  </ul>
+				</div>
+			</div>
+			<div class="hide-for-medium-down">
+				<dl class="tabs" data-tab>
+				  <dd class="activeBtn"><a href="#panel2-1">Product</a></dd>
+				  <dd><a href="#panel2-2">Partner</a></dd>
+				</dl>
+
+				<div class="tabs-content">
+				  <div class="content active" id="panel2-1">
+					<select>
+						<option selected disabled>Select Product</option>
+						<option></option>	
+						<option></option>	
+						<option></option>																					
+					</select>	
+					  </div>
+					  <div class="content" id="panel2-2">
+					<select>
+						<option selected disabled>Select Partner</option>
+						<option></option>	
+						<option></option>	
+						<option></option>																					
+					</select>	
+				  </div>
+				</div>	
+			</div>	
+
+			<select class="small-6 left">
+				<option selected disabled>2010</option>
+				<option></option>	
+				<option></option>	
+				<option></option>																					
+			</select>
+
+			<select class="small-6 right">
+				<option selected disabled>End</option>
+				<option></option>	
+				<option></option>	
+				<option></option>																					
+			</select>	
+
+			<select id="visSelection">
+				<option class="visSelect" selected>Treemap</option>
+				<option class="visSelect">Geographical Map</option>
+				<option class="visSelect">Stacked Graph</option>
+				<option class="visSelect">Product Space</option>
+				<option class="visSelect">Product Feasibility</option>
+				<option class="visSelect">Rings</option>
+			</select>	
+		</div>
+
+<!-- 		<div id="story">
+			<a class="button small-12 columns text-center" href="">Create a Story</a>
+			<div id="chapters">
+				<a class="chapNav"><p><</p></a>
+				<div id="chapWindow"></div>
+				<a href="" class="chapNav"><p>></p></a>
+			</div>
+			<ul class="small-block-grid-4">
+			  <li class="visBtn"><a href=""><img src="img/treemap.png"></a></li>
+			  <li class="visBtn"><a href=""><img src="img/map.png"></a></li>
+			  <li class="visBtn"><a href=""><img src="img/stacked.png"></a></li>
+			  <li class="visBtn"><a href=""><img src="img/map.png"></a></li>			  
+			</ul>			
+		</div>	 -->	
+	</div>
+	<div id="app">
+		<div id="direct">
+			<div id="directInner">
+				<div class="medium-12 columns">
+					<div id="slider"></div>
+<!-- 					<div class="range-slider" data-slider data-options="step: 5;">
+					  <span class="range-slider-handle"></span>
+					  <span class="range-slider-active-segment"></span>
+					  <input type="hidden">
+					</div>	 -->												
+				</div>
+				<div class="medium-12 columns">
+					<div class="button-bar small-3 columns">
+						<label>Product Class</label>
+					  <ul class="button-group">
+					    <li><a href="#" class="tiny button qb activeBtn">SITC</a></li>
+					    <li><a href="#" class="tiny button qb">HS4</a></li>
+					  </ul>
+					</div>	
+					<div class="button-bar small-5 columns">
+						<label>Level of Detail</label>
+						<ul class="button-group">
+							<li><a href="#" class="tiny button qb">Low</a></li>
+							<li><a href="#" class="tiny button qb">Medium</a></li>
+							<li><a href="#" class="tiny button qb activeBtn">High</a></li>
+						</ul>
+					</div>
+					<div class="button-bar small-3 columns end">
+						<label>Level of Detail</label>
+						<ul class="button-group">
+							<li><a href="#" class="tiny button qb">Net</a></li>
+							<li><a href="#" class="tiny button qb activeBtn">Gross</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="medium-12 columns">
+					<div class="button-bar small-3 columns">
+						<label>Labels</label>
+					  <ul class="button-group">
+					    <li><a href="#" class="tiny button qb activeBtn">On</a></li>
+					    <li><a href="#" class="tiny button qb">Off</a></li>
+					  </ul>
+					</div>	
+					<div class="button-bar small-4 columns">
+						<label>Layout</label>
+						<ul class="button-group">
+							<li><a href="#" class="tiny button qb">Value</a></li>
+							<li><a href="#" class="tiny button qb activeBtn">Share</a></li>
+						</ul>
+					</div>
+					<div class="button-bar small-4 columns end">
+						<label>Ordering</label>
+						<ul class="button-group">
+							<li><a href="#" class="tiny button qb activeBtn">Community</a></li>
+							<li><a href="#" class="tiny button qb ">Tools</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="medium-12 columns">
+					<div class="button-bar small-10 columns end">				
+					<label>Adjust</label>
+						<ul class="button-group">
+							<li><a href="#" class="activeBtn tiny button qb">Current</a></li>
+							<li><a href="#" class="tiny button qb">Constant</a></li>
+							<li><a href="#" class="tiny button qb">Per Capita Current</a></li>										
+							<li><a href="#" class="tiny button qb">Per Capita Constant</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="small-12 columns text-center" id="moreOptions">
+			<a id="expand" alt="See more controls">See More</a>		
+		</div>
+	</div>
+	<div id="share">
+		<div id="shareInner">
+			<ul>
+				<li><a><i class="fa fa-facebook fa-lg"></i></a></li>
+				<li><a href=""><i class="fa fa-twitter fa-lg"></i></a></li>
+				<li><a href=""><i class="fa fa-google-plus fa-lg"></i></a></li>
+				<li><a href=""><i class="fa fa-envelope fa-lg"></i></a></li>
+				<li><a href=""><img src=""></a></li>
+				<li><a href=""><img src=""></a></li>																				
+			</ul>
+		</div>
+	</div>
+	<div class="bottom">
+		<footer class="small-7 small-centered columns">
+			<p class="text-center">
+				The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide. The Atlas of Economic complexity is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License.</a> 
+			</p>
+		</footer>
+	</div>
+</div>
+<script src="jquery.js"></script>
+<script type="text/javascript" src="jQueryUI/js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="rangeSlider/JQRangeSlider-min.js"></script>
+<script type="text/javascript" src="d3/d3.v3.min.js"></script>
+<script type="text/javascript" src="d3/d3plus/js/d3plus.min.js"></script>
+<script type="text/javascript">
+		$("#slider").rangeSlider({step:10});
+</script>
+<script type="text/javascript" src="vis.js"></script>
+<script type="text/javascript" src="foundation/js/foundation.min.js"></script>
+<script type="text/javascript" src="foundation/js/foundation/foundation.dropdown.js"></script>
+<script type="text/javascript" src="foundation/js/foundation/foundation.slider.js"></script>
+<script type="text/javascript" src="chosen_v1.1.0/chosen.jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).foundation({
+  // specify the class used for active drop downs
+  active_class: 'open'
+});
+$(document).ready(function(){
+	$(".chosen-select").chosen()
+	var expanded = false;
+
+	$(".qb").click(function(){
+		$(this).parent().siblings().children().removeClass("activeBtn");
+		$(this).addClass("activeBtn");
+	});
+	$("#expand").click(function(){
+		if(expanded == false){
+			$("#direct").animate({"height":$("#directInner").height()},500);
+			$("#expand").html("See Less");
+			expanded = true;
+		} else{
+			$("#direct").animate({"height":135}, 500);
+			$("#expand").html("See More");
+			expanded = false;
+		}
+	});
+	// $("#direct").mouseleave(function(){
+	// 	$(this).delay(1000).animate({"height": 135},500);
+	// });	
+});
+
+</script>	
+
+<script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Lato:300,400,700:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); </script>
+</body>
+</html>

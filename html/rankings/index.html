@@ -1,0 +1,171 @@
+{% extends "template.html" %}
+
+{% block page_title %}{% if category == "product" %}HS4{% endif %} {{category|capfirst}} Rankings ({{year}}){% endblock %}
+{% block heading_title %}{% if category == "product" %}HS4{% endif %} {{category|capfirst}} Rankings ({{year}}){% endblock %}
+{% block page_description %}{% if category == "product" %}HS4{% endif %} {{category|capfirst}} Rankings ({{year}}){% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/rankings.css">
+{% endblock %}
+
+{% block content %}
+
+<div id="sticky-anchor"></div>
+<div id="sticky">
+  <div id="sidebar">
+    <h3><a href="rankings/country/">Country Rankings</a></h3>
+    <p>Based on a country’s economic complexity for a given year</p>
+    <h3><a href="rankings/product/">Product Rankings</a></h3>
+    <p>Products in the HS4 classification ranked based on their complexity for a given year</p>
+    <h3><a href="rankings/growth-predictions/">Summary: International Growth Projections</a></h3>
+    <p>New 2025 Global Growth Projections Predict China’s Further Slowdown and the Continued Rise of India</p>
+    <h3>Download</h3>
+    <p>
+      <a href="/media/growth_projections/visualizations/data/atlas_growth_projections_2025.csv">&raquo; Download 2015 data and growth projections</a><br />
+      <a href="rankings/country/download/">&raquo; Download all years data</a>
+    </p>
+  </div>
+</div>
+
+<div id="content" style="float:none; margin-left:291px;">
+  <div id="contInner">
+  <div class="change_year">
+    <a class="prev" href="rankings/{{category}}/{{year|add:'-1'}}/">&laquo; Previous Year</a>
+    <dl class="dropdown">
+      <dt><a href="#"><span>{{year}}</span></a></dt>
+      <dd>
+        <ul>
+          {% for y in year_list %}
+          <li><a alt="{{y}}" href="#">{{y}}</a></li>
+          {% endfor %}
+        </ul>
+      </dd>
+    </dl>
+    <a class="next" href="rankings/{{category}}/{{year|add:'1'}}/">Next Year &raquo;</a>
+  </div>
+
+  <table class="sortable"><thead><tr>
+
+    {% if category == "country" %}
+    <th class="sorttable_sorted"><a class="sort">Rank</a><div id="sorttable_sortfwdind" class="sort_arrow_down"></div></th>
+    <th><a class="sort">Abbrv</a></th>
+    <th><a class="sort">Country</a></th>
+    <th><a class="sort">ECI Value</a></th>
+    <th class="sorttable_nosort"></th>
+    <th><a class="sort">Delta</a></th>
+    {% else %}
+    <th class="sorttable_sorted"><a class="sort">Rank</a><div id="sorttable_sortfwdind" class="sort_arrow_down"></div></th>
+    <th><a class="sort">HS4 Code</a></th>
+    <th><a class="sort">Product</a></th>
+    <th><a class="sort">PCI Value</a></th>
+    <th></th>
+    <th><a class="sort">Delta</a></th>
+    {% endif %}
+
+  </tr></thead>
+  <tbody>
+
+    {% for r in rankings %}
+    <tr>
+      <td><span>{{r.0}}</span></td>
+      <td>{{r.1}}</td>
+      <td>{{r.2}}</td>
+      <td>{{r.3}}</td>
+      <td>{% if r.4 > 0 %}<div class="arrow_up"></div>{% endif %}{% if r.4 == 0 %}-{% endif %}{% if r.4 < 0 %}<div class="arrow_down"></div>{% endif %}</td>
+      <td>{{r.4}}</td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+  </table>
+</div>
+  <div id="contFooter">
+    <footer>
+      <div class="footerInner">
+        <span>The Atlas of Economic complexity is a powerful interactive tool that enables users to visualize a country's total trade, track how these dynamics change over time and explore growth opportunities for more than a hundred countries worldwide.</span>
+        <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">The Atlas of Economic complexity</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. Current version: <a href="https://github.com/cid-harvard/atlas-economic-complexity">{{ VERSION }}</a>.
+        <br />
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0 display:block;" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a>
+        <p style="clear:both"></p>
+        <a style=" margin-left:150px; float:left;" href="http://www.hks.harvard.edu/centers/cid"><img src="media/img/all/logo_cid.png" alt="Center for International Development Logo"/></a>
+        <div class="language_select" style="float:right; margin-right:150px;">
+          <div class="text">
+            Language:
+          </div>
+          <select>
+            {% for lang in supported_langs %}
+            <option style="" value="{{lang.0.code}}" {% if lang.0.code == LANGUAGE_CODE %} selected="selected" {% endif %}>{{lang.0.name_local}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="media/js/libs/d3/d3.v3.min.js"></script>
+<script src="media/js/libs/sorttable/sorttable.js"></script>
+<script>
+
+// Add color to rankings
+var color = d3.scale.linear()
+  .domain([0, d3.selectAll("tbody tr")[0].length-1])
+  .interpolate(d3.interpolateRgb)
+  .range(["#7cbde2", "#fb9496"])
+d3.selectAll("tbody tr").select("td span").style("background", function(d, i){
+  return color(i);
+})
+
+// Handle download as CSV
+$("button").click(function(){
+  var data = [];
+
+  $("tr").each(function(i, el){
+    var row = [];
+    $(el).children().each(function(i, el){
+      if($(el).text()){
+        row.push($(el).text())
+      }
+    })
+    data.push(row)
+  })
+
+  $("input[name='content']").val(JSON.stringify(data));
+  $("input[name='title']").val("{{category}}_rankings_{{year}}");
+
+  $('form').submit();
+  return false;
+})
+
+// Handle dropdown click
+$(".dropdown dt a").click(function() {
+    $(".dropdown dd ul").toggle();
+    return false;
+});
+
+$(".dropdown dd ul li a").click(function(e) {
+    var text = $(this).html();
+    $(".dropdown dt a span").html(text);
+    $(".dropdown dd ul").hide();
+    // get selected value and route new URL
+    var new_url = "rankings/{{category}}/" + e.target.getAttribute("alt").toLowerCase() + "/";
+    window.location = new_url;
+    // console.log(new_url)
+    return false;
+});
+
+$(document).bind('click', function(e) {
+    var $clicked = $(e.target);
+    if (! $clicked.parents().hasClass("dropdown"))
+        $(".dropdown dd ul").hide();
+});
+</script>
+<script>
+$("head").append("<link rel='stylesheet' type='text/css' href='media/js/libs/bootstrap/css/bootstrap.css'>");
+$("body").css("background-color", "#fafafa");
+</script>
+
+{% endblock %}

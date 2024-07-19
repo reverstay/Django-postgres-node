@@ -1,0 +1,55 @@
+services:
+  painel-ifrs9-database:
+    image: postgres:12
+    restart: always
+    container_name: painel-ifrs9-database
+    environment:
+      POSTGRES_DB: ifrs9
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - ifrs9-data:/var/lib/postgresql/data
+    networks:
+      - django_network
+    expose:
+      - "5432"
+
+  painel-ifrs9:
+    build: .
+    container_name: painel-ifrs9
+    volumes:
+      - .:/app
+    ports:
+      - "9797:9797"
+    depends_on:
+      - painel-ifrs9-database
+      - redis
+    networks:
+      - django_network
+
+  redis:
+    image: redis:latest
+    container_name: painel-ifrs9-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - django_network
+
+  globe:
+    build:
+      context: ./globe
+    container_name: globe
+    ports:
+      - "3456:3456"
+    networks:
+      - django_network
+
+volumes:
+  ifrs9-data:
+
+networks:
+  django_network:
+    driver: bridge

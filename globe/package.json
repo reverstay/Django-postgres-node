@@ -1,0 +1,15 @@
+{
+  "name": "globe",
+  "version": "1.0.0",
+  "description": "The Globe of Economic Complexity",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}

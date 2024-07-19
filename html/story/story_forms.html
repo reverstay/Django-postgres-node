@@ -1,0 +1,123 @@
+
+
+<div class="modal fade" id="dialog-modal-createStory"  tabindex="-1" role="dialog" aria-labelledby="Create Story" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h2 class="modal-title">Create a New Story</h2>
+      </div>
+      <form action="createStory/" name="patron" method="post" class="sform" onsubmit="storeStoryDetails();">
+      <div class="modal-body">
+        {% csrf_token %}
+        <table>
+			<tr class="vertalign">
+				<td><label for="story_name" style="font-weight:normal">Story Title</label></td>
+				<td><input name="story_name" id="story_name" value="{{story_name}}" maxLength="200" class="textfields" type="text" autofocus required></td>
+			</tr>
+			<tr class="vertalign">
+				<td><label for="story_desc" style="font-weight:normal">Description</label></td>
+				<td><textarea name="story_desc" id="story_desc" value="{{story_desc}}" maxLength="2000" rows="6" class="textfields"></textarea></td>
+			</tr>
+		</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" >Create New Story</button>
+      </div>
+     </form> 
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="storyUnderCreation"  role="dialog" aria-labelledby="Create Story" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Story is under creation</h4>
+      </div>
+      <div class="modal-body">
+        <h2 >Please continue adding chapters.</h2> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="dialog-modal-createChapter"   role="dialog" aria-labelledby="Add Chapter" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h2 class="modal-title">Add a New Chapter to the Story</h2>
+      </div>
+      <form  id="chapterCreationModal" name="patron" method="post" class="sform" onsubmit="storeChapterDetails(); return false;">
+      <div class="modal-body">
+        {% csrf_token %}
+        <table>
+			<tr class="vertalign">
+				<td><label for="chap_title" style="font-weight:normal">Chapter details</label></td>
+				<td><input name="chap_title" id="chap_title" value="{{chap_title}}" class="textfields" maxLength="300" type="text"  autofocus required></td>
+			</tr>
+			<tr class="vertalign">
+				<td><label for="chap_desc" style="font-weight:normal">Chapter description</label></td>
+				<td><textarea name="chap_desc" rows="6" class="textfields" id="chap_desc" maxLength="500" value="{{chap_desc}}"></textarea></td>
+			</tr>
+		</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add Chapter</button>
+      </div>
+     </form> 
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="dialog-modal-endStory"  role="dialog" aria-labelledby="End Story" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h2 id="saveTitle">Would you like to save this story?</h2> 
+        <h2 id="alternateSaveTitle">Add chapters to story to save it.</h2>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" id="saveStoryBtn"  onclick="showSaveStoryDialog()">Yes, save it</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="location.href='cancelstory/', localStorage.clear();">No, delete it</button>
+       <button type="button" class="btn btn-default" data-dismiss="modal">I want to continue adding chapters</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+ <div class="modal fade" id="dialog-modal-saveStory"   role="dialog" aria-labelledby="Save Story" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h2 class="modal-title">Identification</h2>
+      </div>
+      <form  id="saveDataInDB1"  method="post" action="">
+      <div class="modal-body">
+        {% csrf_token %}
+        <p>Please select one the following social network:</p>
+        <img src="media/img/sign-in-with-google.png" alt="Login Using Google" onclick="googleLogin()"
+			style="width: 200px; height: 40px; cursor: pointer;margin-left:30px" /> 
+		<img src="media/img/sign-in-with-facebook.png" alt="Login Using Facebook" onclick="fbLogin()"
+			style="width: 200px; height: 40px; margin-left: 60px; cursor: pointer" />
+    <p>..or create the story anonymously:</p>
+		<input type="button" class="btn btn-default" id="anonymousLogin" value="Anonymous" onclick="submitAnonymousLogin();"style="width: 175px; margin-top: 10px; margin-left: 33%;height:35px"></input>
+      </div>
+     </form> 
+    </div>
+  </div>
+</div>
+
+<form action='endSaveStory/' method="post" id="saveDataInDB">
+	{% csrf_token %} 
+	<input type="hidden" id="storyChapterJSON" name="storyChapterJSON"></input> 
+	<input type="hidden" id="storyDetail" name="storyDetail"></input>
+	<input type="hidden" id="socialMediaIntegrationData"name="socialMediaIntegrationData"></input>
+</form>

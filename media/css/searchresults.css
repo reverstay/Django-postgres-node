@@ -1,0 +1,71 @@
+h1#search_title {
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Helvetica Neue', Calibri, Arial, sans-serif;
+    font-weight: 300;
+    margin-top: 110px;
+    text-align: center;
+}
+
+#search {
+    margin-top: 40px;
+    text-align: center;
+}
+#search input {
+    font-size: 14px;
+    width: 400px;
+}
+
+#atlas-search-js {
+    font-family: 'PT Sans Narrow',sans-serif,'Arial';
+    font-size: 30px;
+    font-weight: normal;
+    line-height: 36px;
+    width: 700px;
+    margin: 6px 0 0 10px;
+    color: #343434;
+}
+
+.ui-menu {
+    display: block;
+    width: 390px;
+    margin: 0;
+    padding: 2px;
+    list-style: none;
+    outline: none;
+}
+.ui-menu .ui-menu {
+    position: absolute;
+    width: 100%;
+}
+.ui-menu .ui-menu-item {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.ui-menu :hover {
+    border: none;
+    border-bottom: 1px solid #CCCCCC;
+    border-radius: 0;
+    background: none;
+}
+.ui-widget-content .ui-state-focus {
+    border: none;
+    border-bottom: 1px solid #CCCCCC;
+    border-radius: 0;
+}
+
+.ui-autocomplete {
+    position: absolute;
+    z-index: 100000;
+    top: 0;
+    left: 0;
+    cursor: default;
+}
+
+.ui-menu-item {
+    font-family: arial,sans-serif;
+    font-size: 24px;
+}
+
+.app .ui-menu-item {
+    font-size: 18px;
+}

@@ -1,0 +1,78 @@
+{% extends "template.html" %}
+
+{% block page_title %}The Observatory |Edit {% for objstory in observastory %} {{objstory.story_name}} {% endfor %}{% endblock %}
+{% block heading_title %} Edit Stories{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="media/js/libs/tipsy/tipsy.css" />
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+{% endblock %}
+  
+ {% block content %}
+    <div id="editMain" role="main">
+    	<form method="POST" id="MainQueueForm" name="MainQueueForm">
+              {% csrf_token %}             
+               <input type="Submit" id="updateStoryBtn" value="Update" onClick="this.form.action='{% url observatory.views.updateEditForm %}'"></input>
+			   <input type="button" id="cancelStoryBtn" value="Cancel" onclick="location.href='stories/'"></input>
+               <p style="font-size:14px">Story Title :</p>
+               <div style="clear:both;"></div>
+       	{% for objstory in observastory %}
+     	<div id="editStoryName" class="editable" title="click to edit" data-flag="false">
+     		<div class="editableText">{{objstory.story_name}}</div>     	
+     		<input type="button" class="editTitleBtn" style="background: transparent url('media/img/app/editImage.png')  no-repeat;" onclick="editTitle(this);"></input>
+     	</div>
+      	<p style="font-size:14px">Description:</p>  
+     	<div id="editStoryDesc" class="editable" title="click to edit" data-flag="false">
+     		<div class="editableText">{{objstory.story_desc}}</div>
+     		<input type="button" class="editTitleBtn" style="background: transparent url('media/img/app/editImage.png')  no-repeat;" onclick="editTitle(this);"></input>	
+     	</div>
+     	<div style="clear:both"></div>
+		{% if objstory.number_of_chapters %}   
+			<div id="editChapters">
+				<div  id="chapterList">
+            		<h2 style="background: url('media/img/all/containers_trans.png') -43px -104px;">
+            			<span class="color">Chapter List</span>
+            	    </h2>
+   				</div>  
+				<table id="sortChapters" class="chapterTable" >
+					<thead>
+						<tr>
+							<th class="co">Order</th>
+							<th class="ct">Title</th>
+							<th class="cd">Description</th>
+							<th class="editRow">Edit</th>
+							<th class="remove">Remove</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for story in storychapter %}
+						<tr data-chapter="{{story.chapter_id}}" data-isRemoved="N">
+							<td >{{story.serial_number}}</td>
+							<td class="ctText" >{{ story.chapter_title }}</td>
+							<td class="cdText">{{ story.chapter_desc }}</td>
+							<td class="edit"><a href="#" class="editBtn" style="background: transparent url('media/img/app/editImage.png')  no-repeat;"></a></td>
+							<td class="del"><a href="#" class="deleteBtn" style="background:transparent url('media/img/app/q-sprites.gif') 0 -64px no-repeat;"></a></td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table> 
+    		</div>
+    	{% endif %}
+    	{% endfor %}
+    	<input type="hidden" name="storyTitle" id="storyTitle" value="" />
+		<input type="hidden" name="storyDesc" id="storyDesc" value="" />	
+    	<input type="hidden" name="chapterJson" id="chapterJson" value=""></input>
+    </form>
+  </div>
+ {% endblock %}
+   
+{% block js %}
+  <!-- The JavaScript -->
+  <!-- Libraries -->
+  <script src="media/js/libs/jquery/jquery-1.7.1.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="media/js/libs/tipsy/tipsy.jquery.js" ></script>
+  <script src="media/js/story/editStory.js"></script> 
+ 
+ {% endblock %}
+
