@@ -12,12 +12,12 @@ Este projeto é uma aplicação para visualização de dados econômicos globais
       <li>📁 PDF/</li>
       <li>📁 scripts/</li>
       <li>📁 wiki/</li>
-      <li>📄 Dockerfile</li>
+      <li>🐋 Dockerfile</li>
       <li>📄 package.json</li>
       <li>📄 server.js</li>
-      <li>📄 style.css</li>
+      <li>🎨 style.css</li>
       <li>📄 index.html</li>
-      <li>📄 select2.css</li>
+      <li>🎨 select2.css</li>
       <li>📄 README.md</li>
     </ul>
   </li>
@@ -26,7 +26,7 @@ Este projeto é uma aplicação para visualização de dados econômicos globais
       <li>📄 manage.py</li>
     </ul>
   </li>
-  <li>📄 Dockerfile</li>
+  <li>🐋 Dockerfile</li>
   <li>📄 docker-compose.yaml</li>
   <li>📄 bower.json</li>
   <li>📄 gulpfile.js</li>
@@ -36,6 +36,7 @@ Este projeto é uma aplicação para visualização de dados econômicos globais
   <li>📄 requirements.txt</li>
   <li>📄 README.md</li>
 </ul>
+
 
 
 
