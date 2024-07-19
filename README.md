@@ -4,36 +4,39 @@ Este projeto é uma aplicação para visualização de dados econômicos globais
 
 ## Estrutura do Projeto
 
-├── globe/
-│ ├── data/
-│ ├── images/
-│ ├── PDF/
-│ ├── scripts/
-│ ├── wiki/
-│ ├── Dockerfile
-│ ├── package.json
-│ ├── server.js
-│ ├── style.css
-│ ├── index.html
-│ ├── select2.css
-│ └── README.md
-├── django_files/
-│ ├── manage.py
-│ ├── ...
-├── a1.py
-├── a2.py
-├── a3.py
-├── a4.py
-├── a5.py
-├── Dockerfile
-├── docker-compose.yaml
-├── bower.json
-├── gulpfile.js
-├── html/
-├── media/
-├── package.json
-├── requirements.txt
-└── README.md
+<ul>
+  <li>📁 <strong>globe/</strong>
+    <ul>
+      <li>📁 data/</li>
+      <li>📁 images/</li>
+      <li>📁 PDF/</li>
+      <li>📁 scripts/</li>
+      <li>📁 wiki/</li>
+      <li>📄 Dockerfile</li>
+      <li>📄 package.json</li>
+      <li>📄 server.js</li>
+      <li>📄 style.css</li>
+      <li>📄 index.html</li>
+      <li>📄 select2.css</li>
+      <li>📄 README.md</li>
+    </ul>
+  </li>
+  <li>📁 django_files/
+    <ul>
+      <li>📄 manage.py</li>
+    </ul>
+  </li>
+  <li>📄 Dockerfile</li>
+  <li>📄 docker-compose.yaml</li>
+  <li>📄 bower.json</li>
+  <li>📄 gulpfile.js</li>
+  <li>📁 html/</li>
+  <li>📁 media/</li>
+  <li>📄 package.json</li>
+  <li>📄 requirements.txt</li>
+  <li>📄 README.md</li>
+</ul>
+
 
 
 
